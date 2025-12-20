@@ -396,7 +396,13 @@
                     <h3 class="mb-4 text-primary">Medical Record</h3>
                     <p><strong>Diagnosis:</strong> ${record.diagnosis}</p>
                     <p><strong>Advice:</strong> ${record.advice || '-'}</p>
-                    ${record.attached_reports ? `<p><strong>Reports:</strong> ${record.attached_reports}</p>` : ''}
+                    ${record.attached_reports ?
+                        (record.attached_reports.startsWith('data:image') ?
+                            `<img src="${record.attached_reports}" style="max-width:100%; border-radius:8px; margin-top:10px;">` :
+                            record.attached_reports.startsWith('data:application/pdf') ?
+                                `<a href="${record.attached_reports}" download="report.pdf" class="btn btn-outline btn-sm mt-2">Download Report PDF</a>` :
+                                `<p><strong>Reports:</strong> ${record.attached_reports}</p>`)
+                        : ''}
                     <div class="mt-4" style="background:rgba(255,255,255,0.03); padding:1rem; border-radius:8px;">
                         <strong>Prescriptions:</strong>
                         <ul class="pl-4 mt-2 text-sm text-muted">

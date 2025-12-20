@@ -66,7 +66,7 @@ CREATE TABLE MedicalRecords (
     appointment_id INT REFERENCES Appointments(id) ON DELETE CASCADE ON UPDATE CASCADE,
     diagnosis TEXT NOT NULL,
     advice TEXT,
-    attached_reports VARCHAR(255),
+    attached_reports TEXT,
     follow_up_date DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

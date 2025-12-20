@@ -99,9 +99,9 @@
                         </div>
 
                         <div class="form-group mb-4">
-                            <label class="block text-sm text-muted mb-1">Attached Reports (Link or Name)</label>
-                            <input type="text" id="attached-reports" class="form-input"
-                                placeholder="e.g. Blood Test - Negative">
+                            <label class="block text-sm text-muted mb-1">Attached Reports (Image/PDF)</label>
+                            <input type="file" id="attached-reports" class="form-input"
+                                accept="image/*,application/pdf">
                         </div>
 
                         <div class="form-group mb-4">
@@ -243,13 +243,41 @@
             document.getElementById('med-rows').appendChild(div);
         };
 
+        // Base64 Helper
+        const toBase64 = file => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+
         window.submitTreatment = async (e) => {
             e.preventDefault();
             const aptId = document.getElementById('apt-id').value;
             const diagnosis = document.getElementById('diagnosis').value;
             const advice = document.getElementById('advice').value;
-            const attached_reports = document.getElementById('attached-reports').value;
             const followUp = document.getElementById('follow-up').value;
+
+            // Handle Reports (File -> Base64)
+            let attached_reports = null;
+            const fileInput = document.getElementById('attached-reports');
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                if (file.size > 2 * 1024 * 1024) { // 2MB Limit
+                    alert('File is too large! Please upload a file smaller than 2MB.');
+                    return;
+                }
+                try {
+                    attached_reports = await toBase64(file);
+                } catch (err) {
+                    console.error('Error converting file:', err);
+                    alert('Error processing file.');
+                    return;
+                }
+            } else {
+                // Check if user entered text (fallback/optional)
+                // attached_reports = document.getElementById('attached-reports').value; // Removed as type is file now
+            }
 
             // Collect Meds
             const meds = [];
@@ -275,7 +303,7 @@
                     appointment_id: aptId,
                     diagnosis,
                     advice,
-                    attached_reports,
+                    attached_reports, // Now sending Base64 or null
                     follow_up_date: followUp || null,
                     prescriptions: meds,
                     patient_updates: updates
@@ -283,7 +311,10 @@
                 alert('Treatment Completed Successfully!');
                 closeModal();
                 loadAppointments();
-            } catch (e) { console.error(e); }
+            } catch (e) {
+                console.error(e);
+                alert('Failed to submit treatment.');
+            }
         };
     </script>
 </body>
