@@ -1,4 +1,5 @@
-const API_BASE = 'http://localhost:3001/api';
+// Automatically use relative path for production, or fallback to localhost if needed (though /api matches the serving origin)
+const API_BASE = '/api';
 
 const App = {
     state: {
