@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Environment Variables
+.env
+backend/.env
+
+# System Files
+.DS_Store
+.vscode/
+
+# Logs and Tests
+*.log
+test_output.txt
+
+# Artifacts/Temp
+.gemini/
