@@ -45,7 +45,7 @@ The system ensures privacy and efficiency with role-based access control, real-t
 ## � Project Structure
 
 ```bash
-KAPS-MedTech/
+KAPS_MedTech/
 ├── backend/                # Server-side logic
 │   ├── routes/             # API Endpoints (Auth, Appointments, Doctor)
 │   ├── middleware/         # Auth verification middleware
@@ -74,8 +74,8 @@ Follow these steps to run the project locally on your machine.
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/kaps-medtech.git
-cd kaps-medtech
+git clone https://github.com/Pushpam-2404/KAPS_MedTech.git
+cd KAPS_MedTech
 ```
 
 ### 2. Install Dependencies
@@ -120,7 +120,7 @@ Since this app uses a database, we cannot just deploy to a static host. We use *
 
 ### 1. Set up Cloud Database (Neon)
 1.  Go to [Neon.tech](https://neon.tech) and Sign Up.
-2.  Create a Project (e.g., `kaps-medtech`).
+2.  Create a Project (e.g., `KAPS_MedTech`).
 3.  Copy the **Connection String** (e.g., `postgres://user:pass@...neon.tech/neondb?sslmode=require`).
 
 ### 2. Initialize Cloud DB
