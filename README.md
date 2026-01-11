@@ -145,7 +145,7 @@ DATABASE_URL="YOUR_NEON_CONNECTION_STRING" node backend/init_db.js
 ## 🔌 API Overview
 
 | Method | Endpoint | Description |
-| :--- | :--- | :--- |
+| :---| :---| :---|
 | **POST** | `/api/auth/login` | Authenticate user (Student/Doctor). |
 | **GET** | `/api/appointments/doctors` | List available doctors by department. |
 | **POST** | `/api/appointments/book` | Book a new appointment. |
